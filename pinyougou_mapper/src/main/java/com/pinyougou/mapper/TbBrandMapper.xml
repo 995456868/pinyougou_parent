@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.pinyougou.mapper.TbBrandMapper">
+
+    <insert id="add" parameterType="com.pinyougou.pojo.TbBrand">
+        insert into tb_brand (name,first_char) values (#{name },#{firstChar} );
+    </insert>
+
+    <select id="findOne" parameterType="Long" resultType="com.pinyougou.pojo.TbBrand">
+        select id,name,first_char as firstChar from tb_brand where id = #{id};
+    </select>
+
+    <update id="update" parameterType="com.pinyougou.pojo.TbBrand">
+        update tb_brand set name = #{name },first_char=#{firstChar} where id=#{id};
+    </update>
+
+    <delete id="delete" parameterType="Long">
+        delete from tb_brand where id = #{id};
+    </delete>
+
+    <select id="search" parameterType="com.pinyougou.pojo.TbBrand" resultType="com.pinyougou.pojo.TbBrand">
+        select id,name,first_char as firstChar from tb_brand
+        <where>
+            <if test="name != null and name != ''">
+                and name like "%"#{name }"%"
+            </if>
+            <if test="firstChar != null and firstChar != ''">
+                and first_char = #{firstChar}
+            </if>
+        </where>
+    </select>
+    <!--查询品牌集合-->
+    <select id="findBrandList" resultType="map">
+        select id,name as text from tb_brand
+    </select>
+
+</mapper>

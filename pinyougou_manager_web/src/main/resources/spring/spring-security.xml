@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans xmlns="http://www.springframework.org/schema/security"
+			 xmlns:beans="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+			 xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+						http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security.xsd">
+
+	<!-- 放行的 -->
+	<http pattern="/js/**" security="none"></http>
+	<http pattern="/css/**" security="none"></http>
+	<http pattern="/img/**" security="none"></http>
+	<http pattern="/plugins/**" security="none"></http>
+	<http pattern="/login.html" security="none"></http>
+
+	<!-- 默认为true，表达式语法忽略 -->
+	<http use-expressions="false">
+		<!-- /* 和 /** 有什么区别：拦截请求的路径；/*是拦截一级目录：lcoalhost:8081/login.html；/**是拦截所有目录 : lcoalhost:8081/admin/index.html-->
+		<intercept-url pattern="/**" access="ROLE_ADMIN"/>
+		<!-- 设置登录页面的 -->
+		<form-login login-page="/login.html" default-target-url="/admin/index.html" authentication-failure-url="/login.html" always-use-default-target="true"/>
+		<logout logout-success-url="/login.html" invalidate-session="true" logout-url="/logout"></logout>
+		<!-- 跳过浏览器认证 -->
+		<csrf disabled="true"/>
+		<!-- 放行页面中的框架拦截: SAMEORIGIN:不拦截 -->
+		<headers>
+			<frame-options policy="SAMEORIGIN"/>
+		</headers>
+	</http>
+
+	<!-- 配置认证器 -->
+	<authentication-manager>
+		<authentication-provider>
+			<user-service>
+				<user name="admin"  password="admin" authorities="ROLE_ADMIN"/>
+				<user name="user"  password="user" authorities="ROLE_ADMIN"/>
+			</user-service>
+		</authentication-provider>
+	</authentication-manager>
+
+	<!-- 认证类 -->
+	<!-- 	<beans:bean id="" class=""></beans:bean> -->
+</beans:beans>
