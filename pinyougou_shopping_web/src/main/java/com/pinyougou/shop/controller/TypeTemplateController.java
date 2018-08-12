@@ -118,5 +118,9 @@ public class TypeTemplateController {
 	public List<Map> findTypeTemplateList() {
 		return typeTemplateService.findTypeTemplateList();
 	}
-	
+
+	@RequestMapping("findSpecList")
+	public List<Map> findSpecList(Long id){
+		return typeTemplateService.findSpecList(id);
+	}
 }

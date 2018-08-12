@@ -34,4 +34,7 @@ app.service('typeTemplateService',function($http){
     this.findTypeTemplateList=function () {
         return $http.get("../typeTemplate/findTypeTemplateList");
     }
+    this.findSpecList=function (id) {
+		return $http.get("../typeTemplate/findSpecList?id="+id);
+    }
 });

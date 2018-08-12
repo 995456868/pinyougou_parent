@@ -1,5 +1,6 @@
 package com.pinyougou.shop.controller;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -110,5 +111,5 @@ public class GoodsDescController {
 	public PageResult search(@RequestBody TbGoodsDesc goodsDesc, int page, int rows  ){
 		return goodsDescService.findPage(goodsDesc, page, rows);		
 	}
-	
+
 }

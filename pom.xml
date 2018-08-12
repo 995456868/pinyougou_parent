@@ -14,7 +14,6 @@
         <module>pinyougou_mapper</module>
         <module>pinyougou_manager_web</module>
         <module>pinyougou_common</module>
-        <module>pinyougou_shop_web</module>
         <module>pinyougou_shopping_web</module>
     </modules>
 
@@ -320,6 +319,7 @@
                 <includes>
                     <include>**/*.properties</include>
                     <include>**/*.xml</include>
+                    <include>**/*.conf</include>
                 </includes>
                 <filtering>false</filtering>
             </resource>

@@ -1,5 +1,7 @@
 package com.pinyougou.manager.service;
 import java.util.List;
+import java.util.Map;
+
 import com.pinyougou.pojo.TbGoodsDesc;
 
 import com.pinyougou.common.PageResult;
@@ -57,5 +59,6 @@ public interface GoodsDescService {
 	 * @return
 	 */
 	public PageResult findPage(TbGoodsDesc goodsDesc, int pageNum, int pageSize);
-	
+
+
 }

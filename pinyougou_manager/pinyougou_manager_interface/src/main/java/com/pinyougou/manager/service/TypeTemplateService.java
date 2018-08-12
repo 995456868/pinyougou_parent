@@ -62,4 +62,9 @@ public interface TypeTemplateService {
 
 	//获取模板集合
     List<Map> findTypeTemplateList();
+
+	/**
+	 * 根据模板ID查询规格集合 在根据规格ID查询规格选项
+	 */
+	List<Map> findSpecList(Long id);
 }
