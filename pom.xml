@@ -15,6 +15,14 @@
         <module>pinyougou_manager_web</module>
         <module>pinyougou_common</module>
         <module>pinyougou_shopping_web</module>
+        <module>pinyougou_content</module>
+        <module>pinyougou_portal_web</module>
+        <module>pinyougou_search</module>
+        <module>pinyougou_search_web</module>
+        <module>itheima_spring_data_solr</module>
+        <module>pinyougou_page</module>
+        <module>itheima_activemq</module>
+        <module>pinyougou_sms</module>
     </modules>
 
 
@@ -234,6 +242,11 @@
             <groupId>org.apache.solr</groupId>
             <artifactId>solr-solrj</artifactId>
             <version>${solrj.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.data</groupId>
+            <artifactId>spring-data-solr</artifactId>
+            <version>1.5.5.RELEASE</version>
         </dependency>
         <dependency>
             <groupId>com.janeluo</groupId>

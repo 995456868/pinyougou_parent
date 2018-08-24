@@ -29,11 +29,7 @@ app.service('goodsService',function($http){
 	this.search=function(page,rows,searchEntity){
 		return $http.post('../goods/search?page='+page+"&rows="+rows, searchEntity);
 	}
-
-	this.updateMaketable=function(ids,isMaketable){
-		return $http.get("../goods/updateMaketable?ids="+ids+"isMaketable="+isMaketable);
+	this.updateStatus=function(ids,status){
+		return $http.get('../goods/updateStatus?ids='+ids+'&status='+status);
 	}
-	this.updateStatus=function (ids,status) {
-		return $http.get("../goods/updateStatus?ids="+ids+"&status="+status);
-    }
 });

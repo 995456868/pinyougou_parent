@@ -27,7 +27,12 @@
 	<!-- 引用dubbo 服务 -->
 	<dubbo:application name="pinyougou_manager_web" />
 	<dubbo:registry address="zookeeper://192.168.25.128:2181"/>
-	<dubbo:annotation package="com.pinyougou.manager.controller" />  	
+	<dubbo:annotation package="com.pinyougou.manager.controller" />
+	<!-- 配置上传文件的媒体对象 -->
+	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<!-- 上传文件大小默认约等于5M -->
+		<property name="maxUploadSize" value="5000000"></property>
+	</bean>
 	<!-- 扫描包：@Controller注解和@Reference（Dubbo远程注入）注解 -->
 
 	<mvc:default-servlet-handler/>

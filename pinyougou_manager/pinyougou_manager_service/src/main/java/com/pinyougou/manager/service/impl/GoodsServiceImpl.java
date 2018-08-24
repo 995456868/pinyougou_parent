@@ -5,15 +5,12 @@ import java.util.Map;
 
 import com.alibaba.fastjson.JSON;
 import com.pinyougou.mapper.*;
-import com.pinyougou.pojo.TbGoodsDesc;
-import com.pinyougou.pojo.TbItem;
+import com.pinyougou.pojo.*;
 import com.pinyougou.pojo.vo.GoodsVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import com.alibaba.dubbo.config.annotation.Service;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
-import com.pinyougou.pojo.TbGoods;
-import com.pinyougou.pojo.TbGoodsExample;
 import com.pinyougou.pojo.TbGoodsExample.Criteria;
 import com.pinyougou.manager.service.GoodsService;
 
@@ -179,5 +176,24 @@ public class GoodsServiceImpl implements GoodsService {
 		Page<TbGoods> page= (Page<TbGoods>)goodsMapper.selectByExample(example);		
 		return new PageResult(page.getTotal(), page.getResult());
 	}
-	
+
+	@Override
+	public void updateStatus(Long[] ids, String status) {
+		for (Long id : ids) {
+			TbGoods goods = goodsMapper.selectByPrimaryKey(id);
+			goods.setAuditStatus(status);
+			goodsMapper.updateByPrimaryKey(goods);
+
+		}
+	}
+
+	@Override
+	public void updateMaketable(Long[] ids, String isMaketable) {
+		for (Long id :ids) {
+			TbGoods goods = goodsMapper.selectByPrimaryKey(id);
+			goods.setIsMarketable(isMaketable);
+			goodsMapper.updateByPrimaryKey(goods);
+		}
+	}
+
 }

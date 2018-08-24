@@ -1,18 +1,18 @@
-package com.pinyougou.shop.controller;
-import java.util.List;
+package com.pinyougou.manager.controller;
 
-import com.pinyougou.page.service.ItemPageService;
+import com.alibaba.dubbo.config.annotation.Reference;
+import com.pinyougou.common.PageResult;
+import com.pinyougou.common.Result;
+import com.pinyougou.manager.service.GoodsService;
+import com.pinyougou.pojo.TbGoods;
 import com.pinyougou.pojo.vo.GoodsVo;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import com.alibaba.dubbo.config.annotation.Reference;
-import com.pinyougou.pojo.TbGoods;
-import com.pinyougou.manager.service.GoodsService;
 
-import com.pinyougou.common.PageResult;
-import com.pinyougou.common.Result;
+import java.util.List;
+
 /**
  * controller
  * @author Administrator
@@ -24,14 +24,6 @@ public class GoodsController {
 
 	@Reference
 	private GoodsService goodsService;
-
-	@Reference
-	private ItemPageService itemPageService;
-
-	@RequestMapping("/getHtml")
-    public void getHtml(Long goodsId){
-	    itemPageService.getItemHtml(goodsId);
-    }
 	
 	/**
 	 * 返回全部列表
@@ -54,6 +46,7 @@ public class GoodsController {
 	
 	/**
 	 * 增加
+	 * @param goods
 	 * @return
 	 */
 	@RequestMapping("/add")
@@ -113,23 +106,14 @@ public class GoodsController {
 	
 		/**
 	 * 查询+分页
+	 * @param brand
+	 * @param page
+	 * @param rows
+	 * @return
 	 */
 	@RequestMapping("/search")
 	public PageResult search(@RequestBody TbGoods goods, int page, int rows  ){
-		String name = SecurityContextHolder.getContext().getAuthentication().getName();
-		goods.setSellerId(name);
 		return goodsService.findPage(goods, page, rows);		
-	}
-
-	@RequestMapping("updateMaketable")
-	public Result updateMaketable(Long[] ids,String isMaketable){
-		try {
-			goodsService.updateMaketable(ids,isMaketable);
-			return new Result(true,"操作成功。。");
-		} catch (Exception e) {
-			e.printStackTrace();
-			return new Result(false,"操作失敗。。");
-		}
 	}
 	@RequestMapping("updateStatus")
 	public Result updateStatus(Long[] ids,String status){
@@ -138,7 +122,9 @@ public class GoodsController {
 			return new Result(true,"操作成功。。");
 		} catch (Exception e) {
 			e.printStackTrace();
-			return new Result(false,"操作失敗。。");
+			return new Result(false,"操作失敗，請重試。");
 		}
 	}
+
+
 }

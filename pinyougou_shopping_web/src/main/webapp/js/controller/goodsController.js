@@ -182,5 +182,37 @@ app.controller('goodsController', function ($scope, $controller, itemCatService,
         return newList;
         //[{spec:{"网络":"移动3G"},price:0,num:99999,status:'0',isDefault:'0' },{spec:{"网络":"移动4G"},price:0,num:99999,status:'0',isDefault:'0' }]
     }
+    $scope.selectStatus=["未审核","已审核","驳回","关闭"];
+    $scope.itemCatList=[];
+    $scope.findItemCatList1=function () {
+        itemCatService.findAll().success(function (response) {
+            for (var i = 0;i<response.length;i++){
+                $scope.itemCatList[response[i].id]=response[i].name;
+            }
+
+        })
+    }
+    $scope.selectMarketable=['下架','上架'];
+    $scope.updateMaketable=function (isMaketable) {
+        goodsService.updateMaketable($scope.selectId,isMaketable).success(function (response) {
+            if (response.success){
+                $scope.reloadList();
+                $scope.selectId=[];
+            } else{
+                alert(response.message);
+            }
+        })
+
+    }
+    $scope.updateStatus=function (status) {
+        goodsService.updateStatus($scope.selectId,status).success(function (response) {
+            if(response.success){
+                $scope.reloadList();
+                $scope.selectId=[];
+            }else{
+                alert(response.message);
+            }
+        })
+    }
 
 });	
